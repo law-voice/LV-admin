@@ -53,10 +53,12 @@
 - eslint
 - stylelint
 
-### commit message 规范
-git commit 尽量细化，每一次 commit 对应一个小功能，message 为该功能的简要描述。
-消息格式: [type] [scope] [subject], 提交实例: feat -g 权限接入
-#### type
+### git 规范
+#### commit message 规范
+git commit 尽量细化，每一次 commit 对应一个小功能，message 为该功能的简要描述。可以一个分支多个 commit。
+
+消息格式: [type] -[scope] [subject], 示例: feat -g 权限接入
+##### type
 > `type` 用于说明 commit 的类别，只允许使用下面6个标识。
 - `feat`：新功能（feature）
 - `fix`：修补bug
@@ -64,14 +66,25 @@ git commit 尽量细化，每一次 commit 对应一个小功能，message 为�
 - `style`： 代码风格（不影响代码运行的变动），比如 `eslint` 风格，并非是样式更换
 - `refactor`：重构（即不是新增功能，也不是修改bug的代码变动）
 - `chore`：构建过程或辅助工具的变动
-#### scope
-> `scope` 用于说明 commit 影响的范围，目前约定影响作用域为全局(`global`)、模块(`module`)、局部(`local`)。在 commit message 内，使用缩写来代替。
+##### scope
+> `scope` 用于说明 commit 影响的范围，目前约定影响作用域为全局(`global`)、模块(`module`)、局部(`local`)。
+
+在 commit message 内，使用缩写来代替。
+
 作用域可选值分别为：
 - 全局(g)：`feat -g 新增全局方法`
 - 模块(m)：`style -m 修改模块样式`
 - 局部(l)：`fix -l 修复某个bug`
-#### subject
-`subject` 是 commit 目的的简短描述，不超过50个字符，尽量做到原子化。
+##### subject
+`subject` 是 commit 目的的简短描述，不超过50个字符，颗粒度尽可能细致。
+
+#### 分支管理
+##### 新分支开发
+1. 从 develop 拉取新分支，新分支名字格式为 [type]-[yourBranchName]， `type` 为 commit message 规范中的`type`, 例如 `feat-login`
+2. 开发完毕执行 git add & git commit
+3. git push
+4. 在 github 上切换到你推送的新分支，发起 New Pull Reqeust， Assignees 选择非自己的开发人员，再由他 Code Review 后进行 Merge
+
 
 ### 单元测试
 待定
