@@ -1,4 +1,5 @@
 import { queryNotices } from '@/services/user';
+
 const GlobalModel = {
   namespace: 'global',
   state: {
@@ -12,9 +13,7 @@ const GlobalModel = {
         type: 'saveNotices',
         payload: data,
       });
-      const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length,
-      );
+      const unreadCount = yield select(state => state.global.notices.filter(item => !item.read).length);
       yield put({
         type: 'user/changeNotifyCount',
         payload: {
@@ -30,9 +29,7 @@ const GlobalModel = {
         payload,
       });
       const count = yield select(state => state.global.notices.length);
-      const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length,
-      );
+      const unreadCount = yield select(state => state.global.notices.filter(item => !item.read).length);
       yield put({
         type: 'user/changeNotifyCount',
         payload: {
