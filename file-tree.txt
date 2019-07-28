@@ -1,0 +1,151 @@
+ ├─ config
+ | ├─  routes.js
+ | ├─  plugin.config.js
+ | ├─  defaultSettings.js
+ | └─  config.js
+ ├─ public
+ | ├─ icons
+ | | ├─  icon-512x512.png
+ | | ├─  icon-192x192.png
+ | | └─  icon-128x128.png
+ | └─  favicon.png
+ ├─ src
+ | ├─ assets
+ | | └─  logo.svg
+ | ├─ components
+ | | ├─ Authorized
+ | | | ├─  Secured.jsx
+ | | | ├─  renderAuthorize.js
+ | | | ├─  PromiseRender.jsx
+ | | | ├─  index.jsx
+ | | | ├─  CheckPermissions.jsx
+ | | | ├─  AuthorizedRoute.jsx
+ | | | └─  Authorized.jsx
+ | | ├─ CopyBlock
+ | | | ├─  index.less
+ | | | └─  index.jsx
+ | | ├─ GlobalHeader
+ | | | ├─  RightContent.jsx
+ | | | ├─  NoticeIconView.jsx
+ | | | ├─  index.less
+ | | | └─  AvatarDropdown.jsx
+ | | ├─ HeaderDropdown
+ | | | ├─  index.less
+ | | | └─  index.jsx
+ | | ├─ HeaderSearch
+ | | | ├─  index.less
+ | | | └─  index.jsx
+ | | ├─ NoticeIcon
+ | | | ├─  NoticeList.less
+ | | | ├─  NoticeList.jsx
+ | | | ├─  index.less
+ | | | └─  index.jsx
+ | | ├─ PageLoading
+ | | | └─  index.jsx
+ | | ├─ SelectLang
+ | | | ├─  index.less
+ | | | └─  index.jsx
+ | | ├─ SettingDrawer
+ | | | └─  themeColorClient.js
+ | ├─ constants
+ | | ├─  storage.js
+ | | ├─  reg.js
+ | | └─  enum.js
+ | ├─ e2e
+ | | ├─ __mocks__
+ | | | └─  antd-pro-merge-less.js
+ | | ├─  topMenu.e2e.js
+ | | └─  baseLayout.e2e.js
+ | ├─ layouts
+ | | ├─  UserLayout.less
+ | | ├─  UserLayout.jsx
+ | | ├─  BlankLayout.jsx
+ | | └─  BasicLayout.jsx
+ | ├─ locales
+ | | ├─ en-US
+ | | | ├─  settings.js
+ | | | ├─  settingDrawer.js
+ | | | ├─  pwa.js
+ | | | ├─  menu.js
+ | | | ├─  globalHeader.js
+ | | | └─  component.js
+ | | ├─ pt-BR
+ | | | ├─  settings.js
+ | | | ├─  settingDrawer.js
+ | | | ├─  pwa.js
+ | | | ├─  menu.js
+ | | | ├─  globalHeader.js
+ | | | └─  component.js
+ | | ├─ zh-CN
+ | | | ├─  settings.js
+ | | | ├─  settingDrawer.js
+ | | | ├─  pwa.js
+ | | | ├─  menu.js
+ | | | ├─  globalHeader.js
+ | | | └─  component.js
+ | | ├─ zh-TW
+ | | | ├─  settings.js
+ | | | ├─  settingDrawer.js
+ | | | ├─  pwa.js
+ | | | ├─  menu.js
+ | | | ├─  globalHeader.js
+ | | | └─  component.js
+ | | ├─  zh-TW.js
+ | | ├─  zh-CN.js
+ | | ├─  pt-BR.js
+ | | └─  en-US.js
+ | ├─ models
+ | | ├─  user.js
+ | | ├─  setting.js
+ | | ├─  login.js
+ | | └─  global.js
+ | ├─ pages
+ | | ├─ .umi
+ | | | ├─  umiExports.js
+ | | | ├─  umi.js
+ | | | ├─  router.js
+ | | | ├─  polyfills.js
+ | | | ├─  LocaleWrapper.jsx
+ | | | ├─  history.js
+ | | | └─  dva.js
+ | | ├─  Welcome.jsx
+ | | ├─  document.ejs
+ | | ├─  Authorized.jsx
+ | | └─  404.jsx
+ | ├─ services
+ | | └─  user.js
+ | ├─ styles
+ | | └─  utils.less
+ | ├─ utils
+ | | ├─  utils.js
+ | | ├─  request.js
+ | | ├─  index.js
+ | | ├─  format.js
+ | | ├─  dom.js
+ | | ├─  Authorized.js
+ | | └─  authority.js
+ | ├─  service-worker.js
+ | ├─  manifest.json
+ | ├─  global.less
+ | └─  global.jsx
+ ├─ tests
+ | └─  run-tests.js
+ ├─ tools
+ | ├─  file-tree.js
+ | └─  commitmsg.validate.js
+ ├─  tsconfig.json
+ ├─  README.md
+ ├─  package.json
+ ├─  package-lock.json
+ ├─  jsconfig.json
+ ├─  jest.config.js
+ ├─  jest-puppeteer.config.js
+ ├─  file-tree.txt
+ ├─  CNAME
+ ├─  .stylelintrc.js
+ ├─  .prettierrc.js
+ ├─  .prettierignore
+ ├─  .gitignore
+ ├─  .eslintrc.js
+ ├─  .eslintignore
+ └─  .editorconfig
