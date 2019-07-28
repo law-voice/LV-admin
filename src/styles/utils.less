@@ -1,0 +1,161 @@
+.textOverflow() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+.textOverflowMulti(@line: 3, @bg: #fff) {
+  position: relative;
+  max-height: @line * 1.5em;
+  margin-right: -1em;
+  padding-right: 1em;
+  overflow: hidden;
+  line-height: 1.5em;
+  text-align: justify;
+  &::before {
+    position: absolute;
+    right: 14px;
+    bottom: 0;
+    padding: 0 1px;
+    background: @bg;
+    content: '...';
+  }
+  &::after {
+    position: absolute;
+    right: 14px;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: white;
+    content: '';
+  }
+}
+
+// mixins for clearfix
+// ------------------------
+.clearfix() {
+  zoom: 1;
+  &::before,
+  &::after {
+    display: table;
+    content: ' ';
+  }
+  &::after {
+    clear: both;
+    height: 0;
+    font-size: 0;
+    visibility: hidden;
+  }
+}
+
+/*
+* 浮动
+*/
+.fl {
+  float: left;
+}
+
+.fl_i {
+  float: left !important;
+}
+
+.fr {
+  float: right;
+}
+
+.fr_i {
+  float: right !important;
+}
+
+// 文本水平布局
+.tc {
+  text-align: center;
+}
+
+.tc_i {
+  text-align: center !important;
+}
+
+.tr {
+  text-align: right;
+}
+
+.tr_i {
+  text-align: right !important;
+}
+
+.tl {
+  text-align: left;
+}
+
+.tl_i {
+  text-align: left !important;
+}
+
+// 文本垂直布局
+.vm {
+  vertical-align: middle;
+}
+
+.vm_i {
+  vertical-align: middle !important;
+}
+
+.vtb {
+  vertical-align: text-bottom;
+}
+
+.vtb_i {
+  vertical-align: text-bottom !important;
+}
+
+.vt {
+  vertical-align: top;
+}
+
+.vt_i {
+  vertical-align: top !important;
+}
+
+// position
+.pos-r {
+  position: relative;
+}
+
+.pos-r_i {
+  position: relative !important;
+}
+
+// display
+.dn {
+  display: none;
+}
+
+.dn_i {
+  display: none !important;
+}
+
+.db {
+  display: block;
+}
+
+.db_i {
+  display: block !important;
+}
+
+.dib {
+  display: inline-block;
+}
+
+.dib_i {
+  display: inline-block !important;
+}
+
+.di {
+  display: inline;
+}
+
+.di_i {
+  display: inline !important;
+}
