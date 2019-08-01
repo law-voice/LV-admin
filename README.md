@@ -122,7 +122,7 @@
  | └─  global.jsx // 全局 js
  ├─ tests // 测试文件
  | └─  run-tests.js
- ├─ tools // 项目小工具
+ ├─ script // 开发、构建脚本
  | ├─  file-tree.js
  | └─  commitmsg.validate.js
  ├─  tsconfig.json // typescript 配置文件

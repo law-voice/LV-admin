@@ -24,12 +24,12 @@
     "test": "umi test",
     "test:all": "node ./tests/run-tests.js",
     "test:component": "umi test ./src/components",
-    "tree": "node ./tools/file-tree.js"
+    "tree": "node ./scripts/file-tree.js"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint-staged",
-      "commit-msg": "node ./tools/commitmsg.validate.js -E HUSKY_GIT_PARAMS"
+      "commit-msg": "node ./scripts/commitmsg.validate.js -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
