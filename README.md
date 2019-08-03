@@ -80,6 +80,9 @@
  | ├─  defaultSettings.js
  | └─  config.js
  ├─ public // 静态资源
+ ├─ script // 开发、构建脚本
+ | ├─  file-tree.js
+ | └─  commitmsg.validate.js
  ├─ src
  | ├─ assets // 待加工的静态资源
  | | └─  logo.svg
@@ -92,7 +95,6 @@
  | | └─  enum.js // 全局枚举维护
  | ├─ e2e // e2e test
  | ├─ layouts // 全局通用 layout
- | ├─ locales // 语言 (后续考虑移除)
  | ├─ models // data model
  | | ├─  user.js
  | | ├─  setting.js
@@ -109,23 +111,16 @@
  | ├─ styles // 样式
  | | └─  utils.less // 工具类
  | ├─ utils // 通用方法
- | | ├─  utils.js // antd 自带，后续删除
  | | ├─  request.js // 请求
  | | ├─  index.js // 各种通用方法
  | | ├─  format.js // 格式化的通用方法（时间、文件名）
  | | ├─  dom.js // dom 操作通用方法
  | | ├─  Authorized.js // todo delete
  | | └─  authority.js // todo delete
- | ├─  service-worker.js
- | ├─  manifest.json
  | ├─  global.less // 全局样式文件
  | └─  global.jsx // 全局 js
  ├─ tests // 测试文件
  | └─  run-tests.js
- ├─ script // 开发、构建脚本
- | ├─  file-tree.js
- | └─  commitmsg.validate.js
- ├─  tsconfig.json // typescript 配置文件
  ├─  README.md
  ├─  package.json
  ├─  package-lock.json
