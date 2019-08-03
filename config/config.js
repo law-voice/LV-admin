@@ -1,16 +1,14 @@
-import defaultSettings from './defaultSettings'; // https://umijs.org/config/
-
 import path from 'path';
 import slash from 'slash2';
+import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 
 import webpackPlugin from './plugin.config';
 import routes from './routes';
 
-const { pwa, primaryColor } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
-// preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
+const { primaryColor } = defaultSettings;
 
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
-const isAntDesignProPreview = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site';
+const { NODE_ENV } = process.env;
+
 const plugins = [
   [
     'umi-plugin-react',
@@ -19,32 +17,44 @@ const plugins = [
       dva: {
         hmr: true,
       },
-      locale: {
-        // default false
-        enable: true,
-        // default zh-CN
-        default: 'zh-CN',
-        // default true, when it is true, will use `navigator.language` overwrite default
-        baseNavigator: true,
-      },
       dynamicImport: {
-        loadingComponent: './components/PageLoading/index',
+        loadingComponent: './components/common/PageLoading/index',
         webpackChunkName: true,
         level: 3,
       },
-      pwa: pwa
-        ? {
-            workboxPluginMode: 'InjectManifest',
-            workboxOptions: {
-              importWorkboxFrom: 'local',
-            },
-          }
-        : false, // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
+      pwa: false,
+      // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
       // dll features https://webpack.js.org/plugins/dll-plugin/
-      // dll: {
-      //   include: ['dva', 'dva/router', 'dva/saga', 'dva/fetch'],
-      //   exclude: ['@babel/runtime', 'netlify-lambda'],
-      // },
+      dll: {
+        include: [
+          'react',
+          'react-dom',
+          'react-router',
+          'redux',
+          'prop-types',
+          'dva',
+          'dva/router',
+          'dva/saga',
+          'dva/fetch',
+          'umi',
+          'umi-request',
+          'antd',
+          'antd',
+          '@ant-design/pro-layout',
+          '@antv/data-set',
+          'react-container-query',
+          'react-copy-to-clipboard',
+          'react-document-title',
+          'react-media',
+          'react-media-hook2',
+          'lodash',
+          'moment',
+          'qs',
+          'classnames',
+          'omit.js',
+          'prop-types',
+        ],
+      },
     },
   ],
   [
@@ -56,22 +66,7 @@ const plugins = [
       autoAddMenu: true,
     },
   ],
-]; // 针对 preview.pro.ant.design 的 GA 统计代码
-
-if (isAntDesignProPreview) {
-  plugins.push([
-    'umi-plugin-ga',
-    {
-      code: 'UA-72788897-6',
-    },
-  ]);
-  plugins.push([
-    'umi-plugin-pro',
-    {
-      serverUrl: 'https://ant-design-pro.netlify.com',
-    },
-  ]);
-}
+];
 
 export default {
   plugins,
@@ -82,7 +77,7 @@ export default {
   targets: {
     ie: 11,
   },
-  devtool: isAntDesignProPreview ? 'source-map' : false,
+  devtool: NODE_ENV === 'development' ? 'source-map' : false,
   // umi routes: https://umijs.org/zh/guide/router.html
   routes,
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
@@ -92,9 +87,7 @@ export default {
   alias: {
     '@': path.resolve(__dirname, '../src'),
   },
-  define: {
-    ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-  },
+  define: {},
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,

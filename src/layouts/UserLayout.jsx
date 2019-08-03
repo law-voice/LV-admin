@@ -3,7 +3,6 @@ import DocumentTitle from 'react-document-title';
 import Link from 'umi/link';
 import React from 'react';
 import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
 import SelectLang from '@/components/SelectLang';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
@@ -27,7 +26,6 @@ const UserLayout = props => {
       title={getPageTitle({
         pathname: location.pathname,
         breadcrumb,
-        formatMessage,
         ...props,
       })}
     >

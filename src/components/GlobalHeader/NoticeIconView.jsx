@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tag, message } from 'antd';
 import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
 import groupBy from 'lodash/groupBy';
 import moment from 'moment';
 import NoticeIcon from '../NoticeIcon';
@@ -32,11 +31,7 @@ class GlobalHeaderRight extends Component {
 
   handleNoticeClear = (title, key) => {
     const { dispatch } = this.props;
-    message.success(
-      `${formatMessage({
-        id: 'component.noticeIcon.cleared',
-      })} ${title}`,
-    );
+    message.success('成功清除');
 
     if (dispatch) {
       dispatch({
@@ -116,12 +111,8 @@ class GlobalHeaderRight extends Component {
           this.changeReadState(item);
         }}
         loading={fetchingNotices}
-        clearText={formatMessage({
-          id: 'component.noticeIcon.clear',
-        })}
-        viewMoreText={formatMessage({
-          id: 'component.noticeIcon.view-more',
-        })}
+        clearText="clear"
+        viewMoreText="view more text"
         onClear={this.handleNoticeClear}
         onPopupVisibleChange={onNoticeVisibleChange}
         onViewMore={() => message.info('Click on view more')}
@@ -131,34 +122,22 @@ class GlobalHeaderRight extends Component {
           tabKey="notification"
           count={unreadMsg.notification}
           list={noticeData.notification}
-          title={formatMessage({
-            id: 'component.globalHeader.notification',
-          })}
-          emptyText={formatMessage({
-            id: 'component.globalHeader.notification.empty',
-          })}
+          title="tab"
+          emptyText="no content"
           showViewMore
         />
         <NoticeIcon.Tab
           tabKey="message"
           count={unreadMsg.message}
           list={noticeData.message}
-          title={formatMessage({
-            id: 'component.globalHeader.message',
-          })}
-          emptyText={formatMessage({
-            id: 'component.globalHeader.message.empty',
-          })}
+          title="tab2"
+          emptyText="no content2"
           showViewMore
         />
         <NoticeIcon.Tab
           tabKey="event"
-          title={formatMessage({
-            id: 'component.globalHeader.event',
-          })}
-          emptyText={formatMessage({
-            id: 'component.globalHeader.event.empty',
-          })}
+          title="tab2"
+          emptyText="no content2"
           count={unreadMsg.event}
           list={noticeData.event}
           showViewMore

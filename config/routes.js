@@ -8,7 +8,7 @@ export default [
     routes: [
       {
         path: '/',
-        name: 'welcome',
+        name: '欢迎',
         icon: 'smile',
         component: './Welcome',
       },

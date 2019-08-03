@@ -1,7 +1,4 @@
 // Change theme plugin
-// eslint-disable-next-line eslint-comments/abdeils - enable - pair;
-
-/* eslint-disable import/no-extraneous-dependencies */
 import ThemeColorReplacer from 'webpack-theme-color-replacer';
 import generate from '@ant-design/colors/lib/generate';
 import path from 'path';
@@ -26,6 +23,17 @@ function getModulePackageName(module) {
   return packageName;
 }
 
+const getAntdSerials = color => {
+  const lightNum = 9;
+  const devide10 = 10; // 淡化（即less的tint）
+
+  const lightens = new Array(lightNum)
+    .fill(undefined)
+    .map((_, i) => ThemeColorReplacer.varyColor.lighten(color, i / devide10));
+  const colorPalettes = generate(color);
+  return lightens.concat(colorPalettes);
+};
+
 export default config => {
   // preview.pro.ant.design only do not use in your production;
   if (
@@ -42,7 +50,7 @@ export default config => {
         changeSelector(selector) {
           switch (selector) {
             case '.ant-calendar-today .ant-calendar-date':
-              return ':not(.ant-calendar-selected-date)' + selector;
+              return `:not(.ant-calendar-selected-date)${selector}`;
 
             case '.ant-btn:focus,.ant-btn:hover':
               return '.ant-btn:focus:not(.ant-btn-primary),.ant-btn:hover:not(.ant-btn-primary)';
@@ -91,15 +99,4 @@ export default config => {
         },
       },
     });
-};
-
-const getAntdSerials = color => {
-  const lightNum = 9;
-  const devide10 = 10; // 淡化（即less的tint）
-
-  const lightens = new Array(lightNum).fill(undefined).map((_, i) => {
-    return ThemeColorReplacer.varyColor.lighten(color, i / devide10);
-  });
-  const colorPalettes = generate(color);
-  return lightens.concat(colorPalettes);
 };

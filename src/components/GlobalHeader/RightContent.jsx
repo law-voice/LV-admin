@@ -1,10 +1,8 @@
 import { Icon, Tooltip } from 'antd';
 import React from 'react';
 import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
 import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
-import SelectLang from '../SelectLang';
 import styles from './index.less';
 
 const GlobalHeaderRight = props => {
@@ -19,20 +17,8 @@ const GlobalHeaderRight = props => {
     <div className={className}>
       <HeaderSearch
         className={`${styles.action} ${styles.search}`}
-        placeholder={formatMessage({
-          id: 'component.globalHeader.search',
-        })}
-        dataSource={[
-          formatMessage({
-            id: 'component.globalHeader.search.example1',
-          }),
-          formatMessage({
-            id: 'component.globalHeader.search.example2',
-          }),
-          formatMessage({
-            id: 'component.globalHeader.search.example3',
-          }),
-        ]}
+        placeholder="placeholder"
+        dataSource={['apple', 'bnala', 'adf']}
         onSearch={value => {
           console.log('input', value);
         }}
@@ -40,14 +26,10 @@ const GlobalHeaderRight = props => {
           console.log('enter', value);
         }}
       />
-      <Tooltip
-        title={formatMessage({
-          id: 'component.globalHeader.help',
-        })}
-      >
+      <Tooltip title="帮助">
         <a
           target="_blank"
-          href="https://pro.ant.design/docs/getting-started"
+          href="https://github.com/law-voice/LV-admin"
           rel="noopener noreferrer"
           className={styles.action}
         >
@@ -55,7 +37,6 @@ const GlobalHeaderRight = props => {
         </a>
       </Tooltip>
       <Avatar />
-      <SelectLang className={styles.action} />
     </div>
   );
 };

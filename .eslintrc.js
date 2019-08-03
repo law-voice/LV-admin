@@ -24,6 +24,7 @@ module.exports = {
     'no-restricted-properties': 0,
     // 未重新赋值的变量用 const 声明
     'prefer-const': 0,
+    'import/no-extraneous-dependencies': 0,
   },
   globals: {
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: true,
