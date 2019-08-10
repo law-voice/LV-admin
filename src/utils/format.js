@@ -163,3 +163,16 @@ export function digitUppercase(n) {
       .replace(/^整$/, '零元整')
   );
 }
+
+/**
+ * 中国标准时间格式转数字格式（YYYY/MM/DD）
+ * @param {string} date 'Thu Sep 19 2019 20:23:54 GMT+0800 (中国标准时间)'
+ * @param {number} type '为0时，获取年月日；为1时，获取年月日时分秒'
+ */
+export function standardToNum(date, type = 0) {
+  if (type === 0) {
+    return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  }
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes() +
+    1}:${date.getSeconds()}`;
+}
