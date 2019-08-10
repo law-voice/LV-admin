@@ -20,7 +20,11 @@ const menuDataRender = menuList =>
     return Authorized.check(item.authority, localItem, null);
   });
 
-const footerRender = (_, defaultDom) => <div className="tc">法心 - 管理后台</div>;
+const footerRender = (_, defaultDom) => (
+  <div className="tc" style={{ height: '36px', lineHeight: '36px' }}>
+    法心 - 管理后台
+  </div>
+);
 
 const BasicLayout = props => {
   const { dispatch, children, settings } = props;
