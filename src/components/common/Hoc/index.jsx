@@ -4,6 +4,8 @@ export default function HocComponent(WrappedComponent, WrappedProps, functional 
   const FnComponent = props => <WrappedComponent {...WrappedProps} {...props} />;
   class ClassComponent extends PureComponent {
     render() {
+      console.log(WrappedProps);
+      console.log(this.props);
       return <WrappedComponent {...WrappedProps} {...this.props} />;
     }
   }
