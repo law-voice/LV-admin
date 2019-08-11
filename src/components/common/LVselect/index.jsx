@@ -1,19 +1,17 @@
 import React, { PureComponent } from 'react';
-import { Select } from 'antd';
+import { Select, Option } from 'antd';
 
-let { Option } = Select;
-
-class TheSelect extends PureComponent {
+class LVselect extends PureComponent {
   render() {
     let { options, ...otherProps } = this.props;
     return (
       <Select {...otherProps}>
         {options.map(item => (
-          <Option key={item.value}>{item.name}</Option>
+          <Option value={item.value}>{item.name}</Option>
         ))}
       </Select>
     );
   }
 }
 
-export default TheSelect;
+export default LVselect;
