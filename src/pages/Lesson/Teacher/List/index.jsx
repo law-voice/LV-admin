@@ -167,7 +167,6 @@ class Index extends PureComponent {
     let { visible, form, columns, dataSource } = this.state;
     return (
       <div>
-        <PageHeaderWrapper />
         <div>
           <ListSearch onSearchParam={this.handleSearchParam} />
           <MyModel
