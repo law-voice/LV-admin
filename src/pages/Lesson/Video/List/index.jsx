@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { message, Divider } from 'antd';
 import ListSearch from './Components/ListSearch';
 import ChangeModel from './Components/ChangeModel';
 import TableHeadBtn from './Components/TableHeadBtn';
 import FilterTable from './Components/FilterTable';
 
-class Index extends React.Component {
+class Index extends Component {
   state = {
     visible: false,
     form: {},
