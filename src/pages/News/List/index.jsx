@@ -1,7 +1,5 @@
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import { Table, Form, Input, Button, DatePicker, Row, Col, Divider, Popconfirm, message } from 'antd';
-
-import Hoc from '@/components/common/Hoc';
 
 const { Item } = Form;
 const { RangePicker } = DatePicker;
@@ -10,46 +8,22 @@ const formItems = [
   {
     prop: 'title',
     label: '新闻标题',
-    Component: Hoc(
-      Input,
-      {
-        placeholder: '请输入',
-      },
-      false,
-    ),
+    Component: <Input placeholder="请输入" />,
   },
   {
     prop: 'type',
     label: '类型',
-    Component: Hoc(
-      Input,
-      {
-        placeholder: '请输入',
-      },
-      false,
-    ),
+    Component: <Input placeholder="请输入" />,
   },
   {
     prop: 'publicTime',
     label: '发布时间',
-    Component: Hoc(
-      RangePicker,
-      {
-        placeholder: ['开始日期', '结束日期'],
-      },
-      false,
-    ),
+    Component: <RangePicker placeholder={['开始日期', '结束日期']} />,
   },
   {
     prop: 'source',
     label: '素材提供人',
-    Component: Hoc(
-      Input,
-      {
-        placeholder: '请输入',
-      },
-      false,
-    ),
+    Component: <Input placeholder="请输入" />,
   },
 ];
 
@@ -84,7 +58,7 @@ class FilterForm extends Component {
   };
 
   render() {
-    let { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
+    let { getFieldDecorator } = this.props.form;
     return (
       <Form {...this.formLayout} onSubmit={this.handleSubmit} onReset={this.handleReset}>
         <Row gutter={16}>
@@ -93,8 +67,7 @@ class FilterForm extends Component {
               <Item label={label} hasFeedback>
                 {getFieldDecorator(prop, {
                   initialValue: this.state.form[prop],
-                  rules: [{ required: true, message: 'Please input your E-mail!' }],
-                })(<ItemComponent />)}
+                })(ItemComponent)}
               </Item>
             </Col>
           ))}
@@ -164,15 +137,15 @@ class FilterTable extends Component {
     },
   ];
 
-  rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
+  // rowSelection = {
+  //   onChange: (selectedRowKeys, selectedRows) => {
+  //     console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  //   },
+  //   getCheckboxProps: record => ({
+  //     disabled: record.name === 'Disabled User', // Column configuration not to be checked
+  //     name: record.name,
+  //   }),
+  // };
 
   handlePaginationChange = pageNo => {
     this.props.onPageChange({ ...this.props.pageBean, pageNo });
@@ -266,7 +239,6 @@ export default class NewsList extends Component {
           <Button type="primary" className="mr8">
             新增新闻
           </Button>
-          <Button type="primary">批量删除</Button>
         </div>
         <FilterTable
           loading={this.state.loading}
