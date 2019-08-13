@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'antd';
 
 class Index extends PureComponent {
+  static propTypes = {
+    onAddBtn: PropTypes.func.isRequired,
+    onChangeBtn: PropTypes.func.isRequired,
+  };
+
   render() {
     let { onAddBtn, onChangeBtn } = this.props;
     return (
