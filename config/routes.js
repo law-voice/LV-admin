@@ -20,7 +20,7 @@ export default [
         routes: [
           {
             path: '/news/list',
-            name: '新闻',
+            name: '新闻管理',
             icon: 'bars',
             component: './News/List',
           },
