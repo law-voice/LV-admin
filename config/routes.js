@@ -43,7 +43,7 @@ export default [
             component: './News/Vote',
           },
         ],
-      }, 
+      },
       {
         path: '/Lesson',
         name: '课堂管理',
@@ -55,7 +55,7 @@ export default [
             component: './Lesson/Video/List',
           },
           {
-            path: '/Lesson/Video/Detail',
+            path: '/Lesson/Video/Detail/:id',
             name: '视频详情',
             component: './Lesson/Video/Detail',
             hideInMenu: true,
@@ -70,8 +70,8 @@ export default [
             name: '名师详情',
             component: './Lesson/Teacher/Detail',
             hideInMenu: true,
-          }
-         ]
+          },
+        ],
       },
       {
         component: './404',
