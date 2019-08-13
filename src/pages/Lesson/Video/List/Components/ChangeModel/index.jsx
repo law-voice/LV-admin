@@ -1,69 +1,108 @@
-import React from 'react';
-import { Modal, Input, Select } from 'antd';
-import styles from './index.less';
+import React, { PureComponent } from 'react';
+import { Modal, Form, Row, Col, Input } from 'antd';
+import Hoc from '@/components/common/Hoc';
+import LVselect from '@/components/common/LVselect';
 
-const { Option } = Select;
+const { Item } = Form;
 
-class MyModel extends React.Component {
-  static getDerivedStateFromProps(props, state) {
-    return JSON.stringify(props.form) === JSON.stringify(state.form)
-      ? state
-      : {
-          ...state,
-          form: { ...props.form },
-        };
+const formItems = [
+  {
+    prop: 'title',
+    label: '新闻标题',
+    Component: Hoc(
+      Input,
+      {
+        placeholder: '请输入',
+      },
+      false,
+    ),
+  },
+  {
+    prop: 'type',
+    label: '类型',
+    Component: Hoc(LVselect, {
+      placeholder: '请选择类型',
+      options: [
+        {
+          value: '01',
+          name: '婚姻',
+        },
+        {
+          value: '02',
+          name: '民事',
+        },
+        {
+          value: '03',
+          name: '刑法',
+        },
+      ],
+    }),
+  },
+  {
+    prop: 'author',
+    label: '作者',
+    Component: Hoc(
+      Input,
+      {
+        placeholder: '请输入',
+      },
+      false,
+    ),
+  },
+];
+
+class ModelForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.formLayout = {
+      labelCol: {
+        xs: { span: 8 },
+        sm: { span: 6 },
+      },
+      wrapperCol: {
+        xs: { span: 16 },
+        sm: { span: 18 },
+      },
+    };
   }
 
-  state = {
-    form: {},
-  };
-
-  onChange = (val, type) => {
-    const { form } = this.state;
-    const newForm = {
-      ...form,
-      [type]: val,
-    };
-    this.props.onFormChange(newForm);
+  handleSubmit = e => {
+    e.preventDefault();
   };
 
   render() {
-    let { title, author, type } = this.state.form;
-    let { visible, onOk, onHide } = this.props;
+    let { getFieldDecorator } = this.props.form;
     return (
-      <Modal title="Basic Modal" centered visible={visible} onOk={onOk} onCancel={onHide}>
-        <div className={styles.rowBox}>
-          <span className={styles.paramName}>标题</span>
-          <Input
-            className={styles.rowCon}
-            placeholder="title"
-            value={title}
-            onChange={e => this.onChange(e.target.value, 'title')}
-          />
-        </div>
-        <div className={styles.rowBox}>
-          <span className={styles.paramName}>作者</span>
-          <Input
-            className={styles.rowCon}
-            placeholder="author"
-            value={author}
-            onChange={e => this.onChange(e.target.value, 'author')}
-          />
-        </div>
-        <div className={styles.rowBox}>
-          <span className={styles.paramName}>视频类型</span>
-          <Select
-            showSearch
-            style={{ width: '84%' }}
-            placeholder="Select a type"
-            value={type}
-            onChange={value => this.onChange(value, 'type')}
-          >
-            <Option value="婚姻">婚姻</Option>
-            <Option value="刑事">刑事</Option>
-            <Option value="民事">民事</Option>
-          </Select>
-        </div>
+      <Form {...this.formLayout} onSubmit={this.handleSubmit} onReset={this.handleReset}>
+        <Row gutter={16}>
+          {formItems.map(({ prop, label, Component: ItemComponent }) => (
+            <Col key={prop} xs={24} sm={24} md={24} lg={24}>
+              <Item label={label}>{getFieldDecorator(prop)(<ItemComponent />)}</Item>
+            </Col>
+          ))}
+        </Row>
+      </Form>
+    );
+  }
+}
+
+const WrappedChangeModel = Form.create({ name: 'add' })(ModelForm);
+
+class MyModel extends PureComponent {
+  handleOk = () => {
+    const filter = { form: this.form.props.form.getFieldsValue() };
+    console.log('查询参数', filter);
+  };
+
+  render() {
+    let { visible, onHide } = this.props;
+    return (
+      <Modal title="新增信息" centered visible={visible} onOk={this.handleOk} onCancel={onHide} cancelText="取消">
+        <WrappedChangeModel
+          wrappedComponentRef={theForm => {
+            this.form = theForm;
+          }}
+        />
       </Modal>
     );
   }

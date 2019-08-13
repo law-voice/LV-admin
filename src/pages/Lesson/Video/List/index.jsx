@@ -1,91 +1,48 @@
-import React, { PureComponent } from 'react';
-import { Table, message } from 'antd';
-import Link from 'umi/link';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import React from 'react';
+import { message, Divider } from 'antd';
 import ListSearch from './Components/ListSearch';
-import MyModel from './Components/ChangeModel';
+import ChangeModel from './Components/ChangeModel';
 import TableHeadBtn from './Components/TableHeadBtn';
+import FilterTable from './Components/FilterTable';
 
-class Index extends PureComponent {
+class Index extends React.Component {
   state = {
     visible: false,
     form: {},
-    dataSource: [
-      {
-        key: '0001',
-        title: 'John Brown 1',
-        author: 'new作者 1',
-        type: '婚姻',
-      },
-      {
-        key: '0002',
-        title: 'John Brown 2',
-        author: 'new作者 2',
-        type: '民事',
-      },
-      {
-        key: '0003',
-        title: 'John Brown 3',
-        author: 'new作者 3',
-        type: '刑事',
-      },
-      {
-        key: '0004',
-        title: 'John Brown 4',
-        author: 'new作者 4',
-        type: '劳动保障',
-      },
-    ],
-    columns: [
-      {
-        title: '标题',
-        dataIndex: 'title',
-        render: text => <Link to="/Lesson/Video/Detail">{text}</Link>,
-      },
-      {
-        title: '婚姻',
-        dataIndex: 'author',
-        sorter: (a, b) => a.age - b.age,
-      },
-      {
-        title: '视频类型',
-        dataIndex: 'type',
-      },
-    ],
+    loading: false,
+    pageBean: { pageSize: 10, pageNo: 1, total: 100 },
   };
 
-  componentWillMount() {
-    let data = [];
+  static getDerivedStateFromProps() {
+    let dataSource = [];
     for (let i = 0; i < 16; i++) {
-      data.push({
+      dataSource.push({
         key: `00${i}`,
         title: `标题 ${i}`,
         author: `作者 ${i}`,
         type: '婚姻',
+        source: '东方传媒',
+        cardNo: '-',
+        publicTime: '2019-01-01',
+        readCount: 9999,
+        replyCount: 5671,
       });
     }
-    this.setState({
-      dataSource: data,
-    });
+    return { dataSource };
   }
 
   // list-search 组件
-  handleSearchParam = param => {
-    console.log(param);
-    if (param) {
-      let data = [];
-      for (let i = 0; i < 6; i++) {
-        data.push({
-          key: i,
-          title: `new 标题 ${i}`,
-          author: `new 作者 ${i}`,
-          type: 'new 婚姻',
-        });
-      }
-      this.setState({
-        dataSource: data,
-      });
-    }
+  queryList = () => {
+    const filter = { form: this.form.props.form.getFieldsValue(), pageBean: this.state.pageBean };
+    console.log('查询参数', filter);
+    this.setState({
+      loading: true,
+    });
+    setTimeout(() => this.setState({ loading: false }), 500);
+    // await api.getNewsList({
+    //   params: filter
+    // })
+    console.log('查询成功');
   };
 
   handleHide = () => {
@@ -94,24 +51,11 @@ class Index extends PureComponent {
     });
   };
 
-  handleOk = () => {
-    let {
-      dataSource,
-      form: { title, author, type },
-    } = this.state;
-    dataSource.unshift({
-      key: `00${dataSource.length}`,
-      title,
-      author,
-      type,
-    });
-    this.setState({
-      visible: false,
-      dataSource,
-    });
+  handleOk = data => {
+    console.log(data);
   };
 
-  // MyModel 组件
+  // ChangeModel 组件
   handleFormChange = form => {
     this.setState({ form });
   };
@@ -125,46 +69,30 @@ class Index extends PureComponent {
   };
 
   handleChange = () => {
-    let { selectedRows } = this.state;
-    if (selectedRows.length !== 1) {
-      message.error('必须且只能选中一条');
-    } else {
-      this.setState({
-        visible: true,
-        form: selectedRows[0],
-      });
-    }
+    message.error('此功能尚未开发');
   };
 
-  handleDel = () => {
-    let { selectedArr, dataSource } = this.state;
-    if (selectedArr.length < 1) {
-      message.error('至少选中一条');
-    } else {
-      let cloneData = [...dataSource];
-      for (let i = 0; i < cloneData.length; i++) {
-        for (let j = 0; j < selectedArr.length; j++) {
-          if (cloneData[i].key === selectedArr[j]) {
-            cloneData.splice(i, 1);
-          }
-        }
-      }
-      this.setState({
-        dataSource: cloneData,
-      });
-    }
+  // table 表格
+  handlePageChange = pageBean => {
+    this.setState({ pageBean }, () => {
+      this.queryList();
+    });
+  };
+
+  handleDetailClick = ({ id }) => {
+    console.log(id);
+    this.props.history.push({ pathname: `/Lesson/Video/Detail/${id}` });
+  };
+
+  handleDelete = async ({ id }) => {
+    console.log(id);
+    message.success('删除成功');
+    // send delete request
+    this.queryList();
   };
 
   render() {
-    const rowSelection = {
-      onChange: (selectedArr, selectedRows) => {
-        this.setState({
-          selectedArr,
-          selectedRows,
-        });
-      },
-    };
-    let { visible, form, columns, dataSource } = this.state;
+    let { visible, form, loading, dataSource, pageBean } = this.state;
     return (
       <div className="page">
         <ListSearch
@@ -173,15 +101,23 @@ class Index extends PureComponent {
           }}
           onSearch={this.queryList}
         />
-        <MyModel
+        <ChangeModel
           visible={visible}
           form={form}
           onHide={this.handleHide}
           onOk={this.handleOk}
           onFormChange={this.handleFormChange}
         />
-        <TableHeadBtn onAddBtn={this.handleAdd} onChangeBtn={this.handleChange} onDelBtn={this.handleDel} />
-        <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} pagination />
+        <Divider style={{ margin: '0 0 16px' }} />
+        <TableHeadBtn onAddBtn={this.handleAdd} onChangeBtn={this.handleChange} />
+        <FilterTable
+          loading={loading}
+          dataSource={dataSource}
+          pageBean={pageBean}
+          onPageChange={this.handlePageChange}
+          onDetailClick={this.handleDetailClick}
+          onDelete={this.handleDelete}
+        />
       </div>
     );
   }

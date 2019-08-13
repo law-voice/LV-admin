@@ -1,10 +1,11 @@
-import React, { PureComponent } from 'react';
-import { Row, Col, Input, Button, Select, DatePicker, Form } from 'antd';
+import React from 'react';
+import { Row, Col, Input, Button, DatePicker, Form } from 'antd';
 import Hoc from '@/components/common/Hoc';
 import LVselect from '@/components/common/LVselect';
 
 const { Item } = Form;
 const { RangePicker } = DatePicker;
+
 const formItems = [
   {
     prop: 'title',
@@ -111,5 +112,5 @@ class FilterListSearch extends React.Component {
   }
 }
 
-const ListSearch = Form.create({ name: 'filter' })(FilterListSearch);
+const ListSearch = Form.create({ name: 'filterList' })(FilterListSearch);
 export default ListSearch;
