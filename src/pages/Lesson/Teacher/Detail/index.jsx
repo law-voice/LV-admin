@@ -11,7 +11,6 @@ class Index extends PureComponent {
   render() {
     return (
       <div>
-        <PageHeaderWrapper />
         <div>
           <ListShow />
           <div className={styles.playBox}>
