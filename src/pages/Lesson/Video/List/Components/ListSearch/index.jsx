@@ -21,23 +21,27 @@ const formItems = [
   {
     prop: 'type',
     label: '类型',
-    Component: Hoc(LVselect, {
-      placeholder: '请选择类型',
-      options: [
-        {
-          value: '01',
-          name: '婚姻',
-        },
-        {
-          value: '02',
-          name: '民事',
-        },
-        {
-          value: '03',
-          name: '刑法',
-        },
-      ],
-    }),
+    Component: Hoc(
+      LVselect,
+      {
+        placeholder: '请选择类型',
+        options: [
+          {
+            value: '01',
+            name: '婚姻',
+          },
+          {
+            value: '02',
+            name: '民事',
+          },
+          {
+            value: '03',
+            name: '刑法',
+          },
+        ],
+      },
+      false,
+    ),
   },
   {
     prop: 'publicTime',

@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { Row, Col, Input, Button, Select, DatePicker } from 'antd';
 import moment from 'moment';
 import styles from './index.less';
-import { standardToNum } from '@/utils/format';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -23,14 +22,7 @@ class ListSearch extends PureComponent {
     });
   };
 
-  onChangePicker = e => {
-    let start = standardToNum(e[0]._d);
-    let end = standardToNum(e[1]._d);
-    this.setState({
-      start,
-      end,
-    });
-  };
+  onChangePicker = e => {};
 
   onSearch = () => {
     this.props.onSearchParam(this.state);
