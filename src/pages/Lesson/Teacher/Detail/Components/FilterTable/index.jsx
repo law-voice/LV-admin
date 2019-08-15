@@ -12,53 +12,28 @@ class FilterTable extends PureComponent {
 
   columns = [
     {
-      dataIndex: 'name',
-      title: '姓名',
+      dataIndex: 'title',
+      title: '标题',
       align: 'center',
     },
     {
-      dataIndex: 'sex',
-      title: '性别',
+      dataIndex: 'type',
+      title: '类别',
       align: 'center',
     },
     {
-      dataIndex: 'videoCount',
-      title: '视频数量',
+      dataIndex: 'publicTime',
+      title: '发布时间',
       align: 'center',
     },
     {
-      dataIndex: 'playCount',
-      title: '播放次数',
+      dataIndex: 'readCount',
+      title: '浏览量',
       align: 'center',
     },
     {
-      dataIndex: 'heartCount',
-      title: '获赞数量',
-      align: 'center',
-    },
-    {
-      dataIndex: 'registerTime',
-      title: '注册时间',
-      align: 'center',
-    },
-    {
-      dataIndex: 'area',
-      title: '擅长领域',
-      align: 'center',
-    },
-    {
-      dataIndex: 'workTime',
-      title: '执业年限',
-      align: 'center',
-    },
-    {
-      dataIndex: 'IDnumber',
-      title: '身份证号',
-      align: 'center',
-    },
-    {
-      dataIndex: 'mobile',
-      title: '手机号',
+      dataIndex: 'replyCount',
+      title: '评论数',
       align: 'center',
     },
     {

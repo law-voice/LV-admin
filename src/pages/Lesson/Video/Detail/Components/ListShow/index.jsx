@@ -1,55 +1,51 @@
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
-import styles from './index.less';
+import { Descriptions } from 'antd';
+import PropTypes from 'prop-types';
+
+const { Item } = Descriptions;
+const items = [
+  {
+    label: '标题',
+    key: 'title',
+  },
+  {
+    label: '作者',
+    key: 'author',
+  },
+  {
+    label: '类型',
+    key: 'type',
+  },
+  {
+    label: '发布时间',
+    key: 'publicTime',
+  },
+  {
+    label: '浏览量',
+    key: 'readCount',
+  },
+  {
+    label: '获赞数',
+    key: 'heartCount',
+  },
+];
 
 class ListSearch extends PureComponent {
+  static propTypes = {
+    detail: PropTypes.object.isRequired,
+  };
+
   render() {
+    let { detail } = this.props;
     return (
-      <div className={styles.selectBox}>
-        <Row gutter={32}>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>标题</div>
-              <div className={styles.rowCon}>关于应届生入职员工是否有五险一金</div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>发布人</div>
-              <div className={styles.rowCon}>王一</div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>视频类型</div>
-              <div className={styles.rowCon}>劳动保障</div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>发布时间</div>
-              <div className={styles.rowCon}>2019-01-01</div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>浏览量</div>
-              <div className={styles.rowCon}>95486</div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>获赞</div>
-              <div className={styles.rowCon}>20999</div>
-            </div>
-          </Col>
-          <Col span={24} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>视频简介</div>
-              <div className={styles.rowCon}>本视频讲解的是关于应届生入职员工是否有五险一金</div>
-            </div>
-          </Col>
-        </Row>
+      <div>
+        <Descriptions column={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
+          {items.map(({ label, key }) => (
+            <Item key={key} label={label}>
+              {detail[key]}
+            </Item>
+          ))}
+        </Descriptions>
       </div>
     );
   }
