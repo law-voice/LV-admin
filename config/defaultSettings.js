@@ -10,7 +10,7 @@ export default {
   menu: {
     locale: false,
   },
-  title: '法心',
+  title: 'CMS',
   pwa: false,
   iconfontUrl: '',
 };
