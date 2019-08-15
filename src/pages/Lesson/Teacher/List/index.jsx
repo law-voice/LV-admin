@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { message, Divider } from 'antd';
 import ListSearch from './Components/ListSearch';
 import ChangeModel from './Components/ChangeModel';
-import TableHeadBtn from './Components/TableHeadBtn';
+// import TableHeadBtn from './Components/TableHeadBtn';
 import FilterTable from './Components/FilterTable';
 
-class Index extends React.Component {
+class Index extends Component {
   state = {
     visible: false,
     form: {},
@@ -18,14 +18,16 @@ class Index extends React.Component {
     for (let i = 0; i < 16; i++) {
       dataSource.push({
         key: `00${i}`,
-        title: `标题 ${i}`,
-        author: `作者 ${i}`,
-        type: '婚姻',
-        source: '东方传媒',
-        cardNo: '-',
-        publicTime: '2019-01-01',
-        readCount: 9999,
-        replyCount: 5671,
+        name: `王 ${i}`,
+        sex: '男',
+        videoCount: 15,
+        playCount: 5615,
+        heartCount: 815,
+        registerTime: '2019-01-01',
+        area: '婚姻法、劳动纠纷、民事纠纷',
+        workTime: '2015年至今',
+        IDnumber: '111111222233334444',
+        mobile: '13122225555',
       });
     }
     return { dataSource };
@@ -81,7 +83,7 @@ class Index extends React.Component {
 
   handleDetailClick = ({ id }) => {
     console.log(id);
-    this.props.history.push({ pathname: `/Lesson/Video/Detail/${id}` });
+    this.props.history.push({ pathname: `/Lesson/Teacher/Detail/${id}` });
   };
 
   handleDelete = async ({ id }) => {
@@ -109,7 +111,7 @@ class Index extends React.Component {
           onFormChange={this.handleFormChange}
         />
         <Divider style={{ margin: '0 0 16px' }} />
-        <TableHeadBtn onAddBtn={this.handleAdd} onChangeBtn={this.handleChange} />
+        {/* <TableHeadBtn onAddBtn={this.handleAdd} onChangeBtn={this.handleChange} /> */}
         <FilterTable
           loading={loading}
           dataSource={dataSource}

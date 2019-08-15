@@ -55,7 +55,7 @@ export default [
             component: './Lesson/Teacher/List',
           },
           {
-            path: '/Lesson/Teacher/Detail',
+            path: '/Lesson/Teacher/Detail/:id',
             name: '名师详情',
             component: './Lesson/Teacher/Detail',
             hideInMenu: true,

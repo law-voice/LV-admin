@@ -24,7 +24,7 @@ const options = [
 const formItems = [
   {
     prop: 'title',
-    label: '新闻标题',
+    label: '标题',
     Component: <Input placeholder="请输入" />,
   },
   {
@@ -33,14 +33,14 @@ const formItems = [
     Component: <LVselect placeholder="请输入" options={options} />,
   },
   {
+    prop: 'author',
+    label: '作者',
+    Component: <Input placeholder="请输入" />,
+  },
+  {
     prop: 'publicTime',
     label: '发布时间',
     Component: <RangePicker placeholder={['开始日期', '结束日期']} />,
-  },
-  {
-    prop: 'source',
-    label: '素材提供人',
-    Component: <Input placeholder="请输入" />,
   },
 ];
 
