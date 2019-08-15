@@ -1,20 +1,22 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'antd';
-import styles from './index.less';
 
 class Index extends PureComponent {
+  static propTypes = {
+    onAddBtn: PropTypes.func.isRequired,
+    onChangeBtn: PropTypes.func.isRequired,
+  };
+
   render() {
-    let { onAddBtn, onChangeBtn, onDelBtn } = this.props;
+    let { onAddBtn, onChangeBtn } = this.props;
     return (
-      <div className={styles.btnBox}>
-        <Button className={styles.btn} type="primary" onClick={onAddBtn}>
+      <div style={{ margin: '15px 0' }}>
+        <Button className="mr16" type="primary" onClick={onAddBtn}>
           新增
         </Button>
-        <Button className={styles.btn} type="primary" onClick={onChangeBtn}>
+        <Button type="primary" onClick={onChangeBtn}>
           修改
-        </Button>
-        <Button className={styles.btn} type="danger" onClick={onDelBtn}>
-          删除
         </Button>
       </div>
     );

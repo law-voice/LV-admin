@@ -1,5 +1,5 @@
 import React, { Component, useCallback } from 'react';
-import { Table, Form, Input, Button, DatePicker, Row, Col, Divider, Popconfirm, message } from 'antd';
+import { Table, Form, Input, Button, DatePicker, Row, Col, Divider, Popconfirm, message, Select, Option } from 'antd';
 
 import Hoc from '@/components/common/Hoc';
 
@@ -22,7 +22,7 @@ const formItems = [
     prop: 'type',
     label: '类型',
     Component: Hoc(
-      Input,
+      Select,
       {
         placeholder: '请输入',
       },
