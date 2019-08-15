@@ -1,121 +1,115 @@
 import React, { PureComponent } from 'react';
-import { Row, Col, Input, Button, Select, DatePicker } from 'antd';
-import moment from 'moment';
-import styles from './index.less';
-import { standardToNum } from '@/utils/format';
+import { Row, Col, Input, Button, Select, DatePicker, Form } from 'antd';
+import Hoc from '@/components/common/Hoc';
+import LVselect from '@/components/common/LVselect';
 
-const { Option } = Select;
+const { Item } = Form;
 const { RangePicker } = DatePicker;
-const dateFormat = 'YYYY/MM/DD';
+const formItems = [
+  {
+    prop: 'title',
+    label: '新闻标题',
+    Component: Hoc(
+      Input,
+      {
+        placeholder: '请输入',
+      },
+      false,
+    ),
+  },
+  {
+    prop: 'type',
+    label: '类型',
+    Component: Hoc(LVselect, {
+      placeholder: '请选择类型',
+      options: [
+        {
+          value: '01',
+          name: '婚姻',
+        },
+        {
+          value: '02',
+          name: '民事',
+        },
+        {
+          value: '03',
+          name: '刑法',
+        },
+      ],
+    }),
+  },
+  {
+    prop: 'publicTime',
+    label: '发布时间',
+    Component: Hoc(
+      RangePicker,
+      {
+        placeholder: ['开始日期', '结束日期'],
+      },
+      false,
+    ),
+  },
+  {
+    prop: 'source',
+    label: '素材提供人',
+    Component: Hoc(
+      Input,
+      {
+        placeholder: '请输入',
+      },
+      false,
+    ),
+  },
+];
 
-class ListSearch extends PureComponent {
-  state = {
-    title: '关于四险一金',
-    author: '王一',
-    type: '民事',
-    start: '2019/01/01',
-    end: '2019/01/01',
+class FilterListSearch extends React.Component {
+  constructor(props) {
+    super(props);
+    this.formLayout = {
+      labelCol: {
+        xs: { span: 8 },
+        sm: { span: 6 },
+      },
+      wrapperCol: {
+        xs: { span: 16 },
+        sm: { span: 18 },
+      },
+    };
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onSearch();
   };
 
-  onChange = (value, type) => {
-    this.setState({
-      [type]: value,
-    });
-  };
-
-  onChangePicker = e => {
-    let start = standardToNum(e[0]._d);
-    let end = standardToNum(e[1]._d);
-    this.setState({
-      start,
-      end,
-    });
-  };
-
-  onSearch = () => {
-    this.props.onSearchParam(this.state);
-  };
-
-  onReset = () => {
-    this.setState({
-      title: '',
-      author: '',
-      type: '',
-      start: '2018/01/01',
-      end: '2018/01/01',
-    });
+  handleReset = () => {
+    this.props.form.resetFields();
+    this.props.onSearch();
   };
 
   render() {
-    let { title, author, type, start, end } = this.state;
+    let { getFieldDecorator } = this.props.form;
     return (
-      <div className={styles.selectBox}>
-        <Row gutter={32}>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>标题</div>
-              <div className={styles.rowCon}>
-                <Input placeholder="请输入" value={title} onChange={e => this.onChange(e.target.value, 'title')} />
-              </div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>作者</div>
-              <div className={styles.rowCon}>
-                <Input placeholder="请输入" value={author} onChange={e => this.onChange(e.target.value, 'author')} />
-              </div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>视频类型</div>
-              <div className={styles.rowCon}>
-                <Select
-                  showSearch
-                  style={{ width: '100%' }}
-                  placeholder="Select a person"
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                  value={type}
-                  onChange={value => this.onChange(value, 'type')}
-                >
-                  <Option value="婚姻">婚姻</Option>
-                  <Option value="刑事">刑事</Option>
-                  <Option value="民事">民事</Option>
-                </Select>
-              </div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div className={styles.rowBox}>
-              <div className={styles.conL}>发布时间</div>
-              <div className={styles.rowCon}>
-                <RangePicker
-                  size="default"
-                  format="YYYY-MM-DD"
-                  onChange={this.onChangePicker}
-                  value={[moment(start, dateFormat), moment(end, dateFormat)]}
-                />
-              </div>
-            </div>
-          </Col>
-          <Col span={6} className={styles.item}>
-            <div>
-              <Button type="primary" icon="search" className={styles.btnMr} onClick={this.onSearch}>
+      <Form {...this.formLayout} onSubmit={this.handleSubmit} onReset={this.handleReset}>
+        <Row gutter={16}>
+          {formItems.map(({ prop, label, Component: ItemComponent }) => (
+            <Col key={prop} xs={24} sm={12} md={8} lg={6}>
+              <Item label={label}>{getFieldDecorator(prop)(<ItemComponent />)}</Item>
+            </Col>
+          ))}
+          <Col xs={24} sm={12} md={8} lg={6}>
+            <Item>
+              <Button type="primary" htmlType="submit" className="mr16">
                 搜索
               </Button>
-              <Button type="primary" onClick={this.onReset}>
-                重置
-              </Button>
-            </div>
+              <Button htmlType="reset">重置</Button>
+            </Item>
           </Col>
         </Row>
-      </div>
+      </Form>
     );
   }
 }
 
+const ListSearch = Form.create({ name: 'filter' })(FilterListSearch);
 export default ListSearch;
