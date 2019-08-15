@@ -16,11 +16,11 @@ export default [
         path: '/news',
         name: '新闻板块',
         icon: 'profile',
-        component: '../layouts/BlankLayout',
+        component: '../layouts/BlankLayout/index',
         routes: [
           {
             path: '/news/list',
-            name: '新闻',
+            name: '新闻管理',
             icon: 'bars',
             component: './News/List',
           },
@@ -30,24 +30,13 @@ export default [
             component: './News/Detail',
             hideInMenu: true,
           },
-          {
-            path: '/news/reply',
-            icon: 'message',
-            name: '评论',
-            component: './News/Reply',
-          },
-          {
-            path: '/news/vote',
-            icon: 'fund',
-            name: '投票',
-            component: './News/Vote',
-          },
         ],
       },
       {
         path: '/Lesson',
         name: '课堂管理',
         icon: 'play-square',
+        component: '../layouts/BlankLayout/index',
         routes: [
           {
             path: '/Lesson/Video/List',

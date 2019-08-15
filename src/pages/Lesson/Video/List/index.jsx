@@ -166,22 +166,19 @@ class Index extends PureComponent {
     };
     let { visible, form, columns, dataSource } = this.state;
     return (
-      <div className="page">
-        <ListSearch
-          wrappedComponentRef={theForm => {
-            this.form = theForm;
-          }}
-          onSearch={this.queryList}
-        />
-        <MyModel
-          visible={visible}
-          form={form}
-          onHide={this.handleHide}
-          onOk={this.handleOk}
-          onFormChange={this.handleFormChange}
-        />
-        <TableHeadBtn onAddBtn={this.handleAdd} onChangeBtn={this.handleChange} onDelBtn={this.handleDel} />
-        <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} pagination />
+      <div>
+        <div>
+          <ListSearch onSearchParam={this.handleSearchParam} />
+          <MyModel
+            visible={visible}
+            form={form}
+            onHide={this.handleHide}
+            onOk={this.handleOk}
+            onFormChange={this.handleFormChange}
+          />
+          <TableHeadBtn onAddBtn={this.handleAdd} onChangeBtn={this.handleChange} onDelBtn={this.handleDel} />
+          <Table columns={columns} dataSource={dataSource} rowSelection={rowSelection} pagination />
+        </div>
       </div>
     );
   }
