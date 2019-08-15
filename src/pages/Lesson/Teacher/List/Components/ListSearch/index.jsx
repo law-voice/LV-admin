@@ -29,7 +29,7 @@ const formItems = [
   },
   {
     prop: 'type',
-    label: '类型',
+    label: '擅长领域',
     Component: <LVselect placeholder="请输入" options={options} />,
   },
   {
