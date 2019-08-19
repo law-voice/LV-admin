@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Input, Button, DatePicker, Form } from 'antd';
 import PropTypes from 'prop-types';
-import LVselect from '@/components/common/LVselect';
+import LVSelect from '@/components/common/LVSelect';
 
 const { Item } = Form;
 const { RangePicker } = DatePicker;
@@ -30,7 +30,7 @@ const formItems = [
   {
     prop: 'type',
     label: '类型',
-    Component: <LVselect placeholder="请输入" options={options} />,
+    Component: <LVSelect placeholder="请输入" options={options} />,
   },
   {
     prop: 'author',
