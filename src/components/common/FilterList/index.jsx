@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Divider } from 'antd';
 
 import FilterForm from './FilterForm';
-import FilterTable from './FilterTable';
+import List from './List';
 
 /**
  * api 为列表查询的接口，改接口返回格式做强制要求, {data: {item: [], pageBean: {}}}
@@ -15,25 +15,33 @@ import FilterTable from './FilterTable';
  *  - otherProps 同 Form.Item 的 prop。可参考: https://ant.design/components/form-cn/#Form.Item
  * formProps 为 Form 的 Props, 可参考: https://ant.design/components/form-cn/#Form
  * columns 同 Table Props 的 column, 可参考: https://ant.design/components/table-cn/#Column
- * tableProps  同 Table Props, 可参考: https://ant.design/components/table-cn/#Table。 当 tableProps 包含 columns 时会忽略
+ * listProps  同 ./List 的listProps
+ * type 同 ./List type
  * renderMiddleBox 渲染表单与表格中间的内容，比如按钮组或其他展示块
+ * renderList 为一个函数。该函数接收两个参数(data: Array 列表数据, form: Object 筛选表单绑定值)，必须返回 ReactNode
+ * loadingText loading 时的文案
  */
+
 export default class FilterList extends Component {
   static propTypes = {
+    type: List.propTypes.type,
     formItems: PropTypes.array,
     formProps: PropTypes.object,
     columns: PropTypes.array,
-    tableProps: PropTypes.object,
     renderMiddleBox: PropTypes.node,
-    api: PropTypes.func.isRequired, // 查询列表的接口
+    api: PropTypes.func.isRequired,
+    listProps: List.propTypes.listProps,
+    loadingText: List.propTypes.loadingText,
   };
 
   static defaultProps = {
+    type: 'table',
     formItems: [],
     formProps: {},
-    tableProps: {},
+    listProps: {},
     columns: [],
     renderMiddleBox: null,
+    loadingText: List.defaultProps.loadingText,
   };
 
   state = {
@@ -47,7 +55,7 @@ export default class FilterList extends Component {
   }
 
   queryList = async () => {
-    const filter = { form: this.form.getFieldsValue(), pageBean: this.state.pageBean };
+    const filter = { form: this.form ? this.form.getFieldsValue() : {}, pageBean: this.state.pageBean };
     console.log('查询参数', filter);
     this.setState({ loading: true });
     let {
@@ -64,26 +72,39 @@ export default class FilterList extends Component {
   };
 
   render() {
-    const { formItems, formProps, tableProps, renderMiddleBox, columns } = this.props;
+    const { formItems, formProps, renderMiddleBox, columns, listProps, loadingText, type } = this.props;
     const { loading, data, pageBean } = this.state;
+
+    const formData = this.form ? this.form.getFieldsValue() : {};
+
+    console.log('listProps', listProps);
+
+    const finallyListProp = type === 'table' ? { ...listProps, columns } : listProps;
+
     return (
       <div>
-        <FilterForm
-          formItems={formItems}
-          formProps={formProps}
-          wrappedComponentRef={form => {
-            this.form = form && form.props.form;
-          }}
-          onSearch={this.queryList}
-        />
-        <Divider style={{ margin: '0 0 16px' }} />
+        {formItems && formItems.length ? (
+          <>
+            <FilterForm
+              formItems={formItems}
+              formProps={formProps}
+              wrappedComponentRef={form => {
+                this.form = form && form.props.form;
+              }}
+              onSearch={this.queryList}
+            />
+            <Divider style={{ margin: '0 0 16px' }} />
+          </>
+        ) : null}
         {renderMiddleBox && <div className="pb16">{renderMiddleBox}</div>}
-        <FilterTable
-          loading={loading}
+        <List
+          type={type}
+          formData={formData}
+          listProps={finallyListProp}
           data={data}
-          columns={columns}
+          loading={loading}
           pageBean={pageBean}
-          {...tableProps}
+          loadingText={loadingText}
           onPageChange={this.handlePageChange}
         />
       </div>
