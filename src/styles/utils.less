@@ -64,6 +64,34 @@
 
 .dirLoop(@direction, 1);
 
+// 生成颜色 .c333 .c666 ...
+@colors: 3 #333, 6 #666, 9 #999 a #aaa c #ccc;
+
+.colorLoop(@colors, @i: 1) when(@i <=length(@colors)) {
+  @color: extract(@colors, @i);
+  @key: extract(@color, 1);
+  @val: extract(@color, 2);
+  .c@{key} {
+    color: @val;
+  }
+
+  .colorLoop(@colors, @i + 1);
+}
+.colorLoop(@colors, 1);
+
+// 生成字体大小
+@fontSize: 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32;
+
+.fontSizeLoop(@fontSize, @i: 1) when(@i <=length(@fontSize)) {
+  @fs: extract(@fontSize, @i);
+  .f@{fs} {
+    font-size: @fs * 1px;
+  }
+
+  .fontSizeLoop(@fontSize, @i + 1);
+}
+.fontSizeLoop(@fontSize, 1);
+
 // mixins for clearfix
 // ------------------------
 .clearfix() {

@@ -19,15 +19,21 @@ export default [
         component: '../layouts/BlankLayout/index',
         routes: [
           {
-            path: '/news/list',
+            path: '/news',
             name: '新闻管理',
             icon: 'bars',
             component: './News/List',
           },
           {
-            path: '/news/detail/:id',
+            path: '/news/details/:id',
             name: '新闻详情',
             component: './News/Detail',
+            hideInMenu: true,
+          },
+          {
+            path: '/news/comments',
+            name: '评论管理',
+            component: './News/Comment/List',
             hideInMenu: true,
           },
         ],
