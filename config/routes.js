@@ -19,15 +19,21 @@ export default [
         component: '../layouts/BlankLayout/index',
         routes: [
           {
-            path: '/news/list',
+            path: '/news',
             name: '新闻管理',
             icon: 'bars',
             component: './News/List',
           },
           {
-            path: '/news/detail/:id',
+            path: '/news/details/:id',
             name: '新闻详情',
             component: './News/Detail',
+            hideInMenu: true,
+          },
+          {
+            path: '/news/comments',
+            name: '评论管理',
+            component: './News/Comment/List',
             hideInMenu: true,
           },
         ],
@@ -44,7 +50,7 @@ export default [
             component: './Lesson/Video/List',
           },
           {
-            path: '/Lesson/Video/Detail',
+            path: '/Lesson/Video/Detail/:id',
             name: '视频详情',
             component: './Lesson/Video/Detail',
             hideInMenu: true,
@@ -55,7 +61,7 @@ export default [
             component: './Lesson/Teacher/List',
           },
           {
-            path: '/Lesson/Teacher/Detail',
+            path: '/Lesson/Teacher/Detail/:id',
             name: '名师详情',
             component: './Lesson/Teacher/Detail',
             hideInMenu: true,

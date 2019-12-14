@@ -12,7 +12,7 @@
       "autoFix": true
     }
   ],
-  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src"
   }

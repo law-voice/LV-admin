@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Input, Button, DatePicker, Divider, Popconfirm, message } from 'antd';
+import { Input, Button, DatePicker, Divider, Popconfirm, message, Avatar } from 'antd';
 import FilterList from '@/components/common/FilterList';
 
 const { RangePicker } = DatePicker;
 
 const formItems = [
   {
-    prop: 'title',
-    label: '新闻标题',
+    prop: 'source',
+    label: '发布人',
     Component: <Input placeholder="请输入" />,
   },
   {
@@ -16,34 +16,27 @@ const formItems = [
     Component: <Input placeholder="请输入" />,
   },
   {
-    prop: 'publicTime',
-    label: '发布时间',
+    prop: 'replyTime',
+    label: '回复',
     Component: <RangePicker placeholder={['开始日期', '结束日期']} />,
-  },
-  {
-    prop: 'source',
-    label: '素材提供人',
-    Component: <Input placeholder="请输入" />,
   },
 ];
 
 export default class NewsList extends Component {
   columns = [
     {
-      dataIndex: 'title',
-      title: '标题',
-    },
-    {
-      dataIndex: 'type',
-      title: '类别',
-    },
-    {
       dataIndex: 'source',
-      title: '素材提供人',
+      title: '发布人',
+      render: (text, record) => (
+        <>
+          <Avatar src={record.avatar} />
+          <span className="ml8 vm">{record.source}</span>
+        </>
+      ),
     },
     {
-      dataIndex: 'cardNo',
-      title: '提供人身份证',
+      dataIndex: 'title',
+      title: '内容',
     },
     {
       dataIndex: 'publicTime',
@@ -51,11 +44,11 @@ export default class NewsList extends Component {
     },
     {
       dataIndex: 'readCount',
-      title: '浏览量',
+      title: '点赞',
     },
     {
       dataIndex: 'replyCount',
-      title: '评论数',
+      title: '反对',
     },
     {
       key: 'action',
@@ -63,8 +56,9 @@ export default class NewsList extends Component {
       render: (text, record) => (
         // const { onDetailClick, onDelete } = this.props;
         <span>
-          <Button type="link" onClick={() => this.handleDetailClick(record)}>
-            查看详情
+          <Button type="link">查看</Button>
+          <Button type="link" onClick={() => this.setToTop(record)}>
+            置顶
           </Button>
           <Divider type="vertical" />
           <Popconfirm
@@ -84,11 +78,13 @@ export default class NewsList extends Component {
     this.filterList = ele;
   };
 
-  handleDetailClick = ({ id }) => {
-    this.props.history.push({ pathname: `/news/details/${id}` });
+  setToTop = ({ id }) => {
+    // TODO: 置顶
+    console.log(id);
   };
 
-  handleDelete = async () => {
+  handleDelete = async ({ id }) => {
+    console.log(id);
     message.success('删除成功');
     // send delete request
     this.filterList.queryList();
@@ -105,6 +101,7 @@ export default class NewsList extends Component {
                 key: 1,
                 id: 1,
                 title: '震惊，竟然发生这种事情',
+                avatar: 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png',
                 type: '社会',
                 source: '人民日报',
                 publicTime: '2019-08-03',
@@ -124,20 +121,24 @@ export default class NewsList extends Component {
 
   render() {
     return (
-      <FilterList
-        ref={this.setFilterListRef}
-        api={this.api}
-        formItems={formItems}
-        columns={this.columns}
-        tableProps={{
-          bordered: true,
-        }}
-        renderMiddleBox={
-          <Button type="primary" className="mr8">
-            新增新闻
-          </Button>
-        }
-      />
+      <div>
+        <h2 className="mb16">评论主题： 震惊，竟然发生这种事情</h2>
+        <Divider />
+        <FilterList
+          ref={this.setFilterListRef}
+          api={this.api}
+          formItems={formItems}
+          columns={this.columns}
+          tableProps={{
+            bordered: true,
+          }}
+          renderMiddleBox={
+            <Button type="primary" className="mr8">
+              新增新闻
+            </Button>
+          }
+        />
+      </div>
     );
   }
 }

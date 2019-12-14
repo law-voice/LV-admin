@@ -138,7 +138,10 @@ export function digitUppercase(n) {
   n = parseFloat(n);
   const fraction = ['角', '分'];
   const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
-  const unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
+  const unit = [
+    ['元', '万', '亿'],
+    ['', '拾', '佰', '仟'],
+  ];
   const head = n < 0 ? '欠' : '';
   n = Math.abs(n);
   let s = '';
@@ -162,17 +165,4 @@ export function digitUppercase(n) {
       .replace(/(零.)+/g, '零')
       .replace(/^整$/, '零元整')
   );
-}
-
-/**
- * 中国标准时间格式转数字格式（YYYY/MM/DD）
- * @param {string} date 'Thu Sep 19 2019 20:23:54 GMT+0800 (中国标准时间)'
- * @param {number} type '为0时，获取年月日；为1时，获取年月日时分秒'
- */
-export function standardToNum(date, type = 0) {
-  if (type === 0) {
-    return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-  }
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes() +
-    1}:${date.getSeconds()}`;
 }
