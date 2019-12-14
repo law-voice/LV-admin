@@ -81,6 +81,7 @@ export default class NewsList extends Component {
   ];
 
   setFilterListRef = ele => {
+    // console.log(testet)
     this.filterList = ele;
   };
 
