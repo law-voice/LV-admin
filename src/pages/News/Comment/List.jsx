@@ -53,26 +53,24 @@ export default class NewsList extends Component {
     {
       key: 'action',
       title: '其他',
-      render: (text, record) => {
-        const { onDetailClick, onDelete } = this.props;
-        return (
-          <span>
-            <Button type="link">查看</Button>
-            <Button type="link" onClick={() => this.setToTop(record)}>
-              置顶
-            </Button>
-            <Divider type="vertical" />
-            <Popconfirm
-              title="确定要删除吗？"
-              okText="确定"
-              cancelText="取消"
-              onConfirm={() => this.handleDelete(record)}
-            >
-              <Button type="link">删除</Button>
-            </Popconfirm>
-          </span>
-        );
-      },
+      render: (text, record) => (
+        // const { onDetailClick, onDelete } = this.props;
+        <span>
+          <Button type="link">查看</Button>
+          <Button type="link" onClick={() => this.setToTop(record)}>
+            置顶
+          </Button>
+          <Divider type="vertical" />
+          <Popconfirm
+            title="确定要删除吗？"
+            okText="确定"
+            cancelText="取消"
+            onConfirm={() => this.handleDelete(record)}
+          >
+            <Button type="link">删除</Button>
+          </Popconfirm>
+        </span>
+      ),
     },
   ];
 
@@ -82,9 +80,11 @@ export default class NewsList extends Component {
 
   setToTop = ({ id }) => {
     // TODO: 置顶
+    console.log(id);
   };
 
   handleDelete = async ({ id }) => {
+    console.log(id);
     message.success('删除成功');
     // send delete request
     this.filterList.queryList();

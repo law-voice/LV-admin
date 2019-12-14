@@ -138,7 +138,10 @@ export function digitUppercase(n) {
   n = parseFloat(n);
   const fraction = ['角', '分'];
   const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
-  const unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
+  const unit = [
+    ['元', '万', '亿'],
+    ['', '拾', '佰', '仟'],
+  ];
   const head = n < 0 ? '欠' : '';
   n = Math.abs(n);
   let s = '';

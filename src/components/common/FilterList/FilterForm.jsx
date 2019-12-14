@@ -49,7 +49,7 @@ class FilterForm extends Component {
     this.props.onSearch();
   };
 
-  handleReset = e => {
+  handleReset = () => {
     this.props.form.resetFields();
     this.props.onSearch();
   };

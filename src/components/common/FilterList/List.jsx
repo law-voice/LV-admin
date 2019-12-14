@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Pagination, Spin, List } from 'antd';
+import { Table, List } from 'antd';
 
 export default class FilterTable extends Component {
   static propTypes = {
