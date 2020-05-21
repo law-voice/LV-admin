@@ -1,34 +1,35 @@
-import { parse, stringify } from 'qs';
-import { routerRedux } from 'dva/router';
+import { setAuthority, setToken, removeToken, setRefreshToken } from '@/utils/authority';
+// import { reloadAuthorized } from '@/utils/Authorized';
+import { NAMESPACE } from '@/actions/login';
+import { saveLogin, refreshToken } from '@/services/login';
+import router from 'umi/router';
 
-export function getPageQuery() {
-  return parse(window.location.href.split('?')[1]);
-}
 const Model = {
-  namespace: 'login',
-  state: {
-    status: undefined,
-  },
+  namespace: NAMESPACE,
+  state: {},
   effects: {
-    *logout(_, { put }) {
-      const { redirect } = getPageQuery(); // redirect
-
-      if (window.location.pathname !== '/user/login' && !redirect) {
-        yield put(
-          routerRedux.replace({
-            pathname: '/user/login',
-            search: stringify({
-              redirect: window.location.href,
-            }),
-          }),
-        );
-      }
+    *login({ payload }, { call }) {
+      // select 的使用方法：https://blog.csdn.net/weixin_40792878/article/details/82051078
+      const response = yield call(saveLogin, payload);
+      setToken(response.data.access.access_token);
+      setRefreshToken(response.data.refresh.refresh_token);
+      localStorage.setItem('accessEndTime', response.data.access.time_out);
+      // setAuthority('admin');
+      // reloadAuthorized();
+      router.replace('/');
+    },
+    logout() {
+      removeToken();
+      setAuthority('');
+      router.replace('/login');
+    },
+    *refreshToken(_, { call }) {
+      const response = yield call(refreshToken);
+      setToken(response.data.access.access_token);
+      setRefreshToken(response.data.refresh.refresh_token);
+      localStorage.setItem('refreshEndTime', response.data.refresh.time_out);
     },
   },
-  reducers: {
-    changeLoginStatus(state, { payload }) {
-      return { ...state, status: payload.status, type: payload.type };
-    },
-  },
+  reducers: {},
 };
 export default Model;
