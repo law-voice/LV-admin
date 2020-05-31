@@ -4,6 +4,8 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { getToken, getRefreshToken } from '@/utils/authority';
+import router from 'umi/router';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -47,6 +49,51 @@ const errorHandler = error => {
 const request = extend({
   errorHandler,
   // 默认错误处理
-  credentials: 'include', // 默认请求是否带上cookie
+  requestType: 'form',
+  // credentials: 'include', // 默认请求是否带上cookie
 });
+
+// request拦截器, 改变url 或 options.
+request.interceptors.request.use(async (url, options) => {
+  let headers = {};
+  if (url !== '/law-voice/rest/user/generateToken') {
+    headers.access_token = getToken() || '';
+  } else {
+    headers.refresh_token = getRefreshToken() || '';
+  }
+  if (options.method !== 'get') {
+    // if (options.cType === 1) {     // cType 是 Content-Type 的类型，1：json请求，2：form-data请求，3：x-www-form-urlencoded请求
+    //   headers['Content-Type'] = 'application/json'
+    // } else if (options.cType === 2) {
+    //   headers['Content-Type'] = 'multipart/form-data'
+    // } else {
+    //   headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    // }
+    if (options.requestType === 'formData') {
+      // 文件上传，除此之外有默认封装方法：https://github.com/umijs/umi-request/blob/master/README_zh-CN.md （底部文件上传）
+      headers['Content-Type'] = 'multipart/form-data';
+    }
+  }
+  // console.log('header:::' + headers);
+  return {
+    url,
+    options: { ...options, headers },
+  };
+});
+
+// response拦截器, 处理response
+request.interceptors.response.use(async response => {
+  const res = await response.clone().json();
+  if (res.code === 401) {
+    notification.error({
+      message: res.msg,
+    });
+    const st = setTimeout(() => {
+      router.replace('/login');
+      clearTimeout(st);
+    }, 2500);
+  }
+  return response;
+});
+
 export default request;
